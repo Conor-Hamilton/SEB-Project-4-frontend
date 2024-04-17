@@ -1,3 +1,6 @@
+body {
+    font-family: 'Oswald', sans-serif;
+}
 
 @tailwind base;
 @tailwind components;
