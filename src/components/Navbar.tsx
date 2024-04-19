@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IUser } from "../interfaces/user";
 
 interface NavbarProps {
@@ -9,21 +9,36 @@ interface NavbarProps {
 
 export default function Navbar({ user, setUser }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  function logout() {
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/");
+    console.log("user logged out");
+  }
+
+  function mobileLogout() {
+    logout();
+    toggleMenu();
+  }
 
   return (
     <>
       <header className="bg-[#2E1A47] text-white shadow-md py-2">
         <nav className="container mx-auto flex justify-between items-center px-4">
           <div className="flex items-center">
+            <Link to="/">
             <img
               className="w-28"
               src="./assets/11th-planet-logo.png"
               alt="11th Planet Logo"
-            />
+              />
+              </Link>
           </div>
 
           <div>
@@ -32,33 +47,45 @@ export default function Navbar({ user, setUser }: NavbarProps) {
             </button>
           </div>
 
-
           <ul
             className={`hidden md:flex items-center space-x-4 text-lg font-medium`}
           >
-          <div className="flex items-center space-x-4 text-lg font-medium mr-24">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/aboutus">About</Link>
-            </li>
-            <li>
-              <Link to="/kidsbjj">Kids</Link>
-            </li>
-            <li>
-              <Link to="/timetable">Timetable</Link>
-            </li>
-            <li>
-              <Link to="/shop">Shop</Link>
-            </li>
-          </div>
-            <li>
-              <Link to="/signup">Sign-up</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
+            <div className="flex items-center space-x-4 text-lg font-medium mr-24">
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/aboutus">About</Link>
+              </li>
+              <li>
+                <Link to="/kidsbjj">Kids</Link>
+              </li>
+              <li>
+                <Link to="/timetable">Timetable</Link>
+              </li>
+              <li>
+                <Link to="/shop">Shop</Link>
+              </li>
+            </div>
+            {user ? (
+              <li>
+                <button
+                  onClick={logout}
+                  className="text-white px-5 py-2 rounded-full hover:bg-[#3c2355]"
+                >
+                  Log Out
+                </button>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <Link to="/signup">Sign-up</Link>
+                </li>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+              </>
+            )}
           </ul>
 
           <div
@@ -76,7 +103,7 @@ export default function Navbar({ user, setUser }: NavbarProps) {
                 </Link>
               </li>
               <li>
-                <Link to="/about" onClick={toggleMenu}>
+                <Link to="/aboutus" onClick={toggleMenu}>
                   About
                 </Link>
               </li>
@@ -95,16 +122,29 @@ export default function Navbar({ user, setUser }: NavbarProps) {
                   Shop
                 </Link>
               </li>
-              <li>
-                <Link to="/signup" onClick={toggleMenu}>
-                  Sign-up
-                </Link>
-              </li>
-              <li>
-                <Link to="/login" onClick={toggleMenu}>
-                  Login
-                </Link>
-              </li>
+              {user ? (
+                <li>
+                  <button
+                    onClick={mobileLogout}
+                    className="text-white px-5 py-2 rounded-full hover:bg-[#3c2355]"
+                  >
+                    Log Out
+                  </button>
+                </li>
+              ) : (
+                <>
+                  <li>
+                    <Link to="/signup" onClick={toggleMenu}>
+                      Sign-up
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/login" onClick={toggleMenu}>
+                      Login
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </nav>

@@ -1,20 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-
 export default function AboutUs() {
-  const [coaches, setCoaches] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:4000/api/coaches")
-      .then((response) => {
-        setCoaches(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the coach data:", error);
-      });
-  }, []);
-
+  
   return (
     <>
       <section className="bg-cover bg-center">
@@ -58,18 +43,17 @@ export default function AboutUs() {
           <img src="./assets/mma-2.jpg" alt="" className="w-[400px]" />
         </div>
       </section>
-      <section className="p-8 text-center bg-gray-100">
+      <section className="p-8 text-center">
         <h2 className="text-4xl font-bold mb-6">Meet the Team</h2>
         <hr className="border-t-2 border-black mx-auto w-4/5 my-6" />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="card">
-            <div className="rounded-full overflow-hidden inline-block border-2 border-gray-300">
-              <img
-                src="./assets/kavanagh.jpg"
-                alt="Coach Kavanagh"
-                className="object-cover"
-              />
-            </div>
+        <div className="flex flex-wrap justify-center items-stretch gap-4">
+          <div className="card max-w-xs flex-1">
+            {" "}
+            <img
+              src="./assets/kavanagh.jpg"
+              alt="Coach Kavanagh"
+              className="rounded-full w-32 h-32 mx-auto mt-4 object-cover"
+            />
             <div className="p-4">
               <h3 className="text-xl font-semibold">Coach Kavanagh</h3>
               <p className="text-md">
@@ -77,19 +61,15 @@ export default function AboutUs() {
               </p>
             </div>
           </div>
-          <div className="card">
-            <div className="rounded-full overflow-hidden inline-block border-2 border-gray-300">
-              <img
-                src="./assets/kavanagh.jpg"
-                alt="Coach Kavanagh"
-                className="object-cover"
-              />
-            </div>
+          <div className="card max-w-xs flex-1">
+            <img
+              src="./assets/thomas.jpg"
+              alt="Coach Thomas"
+              className="rounded-full w-32 h-32 mx-auto mt-4 object-cover"
+            />
             <div className="p-4">
-              <h3 className="text-xl font-semibold">Coach Kavanagh</h3>
-              <p className="text-md">
-                Head Instructor and founder, specializing in No-Gi Grappling.
-              </p>
+              <h3 className="text-xl font-semibold">Coach Thomas</h3>
+              <p className="text-md">Instructor, specializing in MMA.</p>
             </div>
           </div>
         </div>
