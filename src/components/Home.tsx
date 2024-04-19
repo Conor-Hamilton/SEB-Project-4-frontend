@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import { format, startOfWeek, endOfWeek, addDays } from "date-fns";
 import { IClasses } from "../interfaces/classes";
 import { useLocation } from "react-router-dom";
+import { baseUrl } from "../../config";
 
 export default function Home() {
   const [classes, setClasses] = useState<IClasses[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/classes")
+    fetch(`${baseUrl}/classes`)
       .then((response) => response.json())
       .then((data) => {
         const sortedClasses = data.sort((a: IClasses, b: IClasses) => {

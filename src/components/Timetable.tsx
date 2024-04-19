@@ -5,6 +5,7 @@ import { IClasses } from "../interfaces/classes";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { baseUrl } from "../../config";
 
 export default function Classes() {
   const [bookedClassId, setBookedClassId] = useState<number | null>(null);
@@ -20,7 +21,7 @@ export default function Classes() {
       console.log("Fetching classes for:", start, "to", end);
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/classes?start=${start}&end=${end}`
+          `${baseUrl}/classes?start=${start}&end=${end}`
         );
         setClasses(response.data);
       } catch (error) {
@@ -47,7 +48,7 @@ export default function Classes() {
     if (!token) {
       navigate("/login");
     } else {
-      const bookingEndpoint = `http://localhost:4000/api/class_attendees`;
+      const bookingEndpoint = `${baseUrl}/class_attendees`;
 
       const userId = JSON.parse(atob(token.split(".")[1])).sub;
 
