@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IUser } from "../interfaces/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/Logo.png";
 
 
 interface NavbarProps {
