@@ -2,6 +2,7 @@ import { SyntheticEvent, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { baseUrl } from "../../config";
+import Logo from "../../assets/Logo.png";
 
 export default function Login({ fetchUser }: { fetchUser: Function }) {
   const navigate = useNavigate();
@@ -14,10 +15,9 @@ export default function Login({ fetchUser }: { fetchUser: Function }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  function handleChange(e: any) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const fieldName = e.target.name;
-    const newFormData = structuredClone(formData);
-    newFormData[fieldName as keyof typeof formData] = e.target.value;
+    const newFormData = { ...formData, [fieldName]: e.target.value };
     setFormData(newFormData);
     setErrorMessage("");
   }
@@ -30,21 +30,18 @@ export default function Login({ fetchUser }: { fetchUser: Function }) {
       console.log(resp.data);
       fetchUser();
       navigate("/");
-    } catch (e: any) {
-      setErrorMessage(e.response.data.message);
+    } catch (error: any) {
+      setErrorMessage(
+        error.response.data.message || "An unexpected error occurred."
+      );
     }
   }
-  console.log(formData);
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-[#2E1A47] to-white">
       <div className="w-full max-w-md px-6 py-8 mx-auto">
         <div className="flex items-center mb-6 text-3xl font-semibold text-white">
-          <img
-            className="w-24 h-24 mr-2"
-            src="./assets/11th-planet-logo.png"
-            alt="11th planet logo"
-          />
+          <img className="w-24 h-24 mr-2" src={Logo} alt="11th planet logo" />
           <span>11th Planet Jiu Jitsu</span>
         </div>
         <div className="bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
@@ -89,8 +86,27 @@ export default function Login({ fetchUser }: { fetchUser: Function }) {
                   onChange={handleChange}
                 />
               </div>
-              {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-
+              {errorMessage && (
+                <div
+                  className="p-4 mb-4 flex items-center text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                  role="alert"
+                >
+                  <svg
+                    className="flex-shrink-0 inline w-5 h-5 mr-3"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <div>
+                    <span className="font-medium">{errorMessage}</span>
+                  </div>
+                </div>
+              )}
               <button
                 type="submit"
                 disabled={isLoading}
@@ -101,7 +117,7 @@ export default function Login({ fetchUser }: { fetchUser: Function }) {
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
                 <Link
-                  to="/Signup"
+                  to="/signup"
                   className="font-medium text-[#2E1A47] hover:underline dark:text-primary-500"
                 >
                   Sign up

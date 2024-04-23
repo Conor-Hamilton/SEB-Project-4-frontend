@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { format, startOfWeek, endOfWeek, addDays } from "date-fns";
 import { IClasses } from "../interfaces/classes";
 import axios from "axios";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { baseUrl } from "../../config";
+import DateRangePicker from "./RangePicker";
 
 export default function Classes() {
   const [bookedClassId, setBookedClassId] = useState<number | null>(null);
   const [classes, setClasses] = useState<IClasses[]>([]);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [userRoles, setUserRoles] = useState<string[]>([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -77,31 +78,55 @@ export default function Classes() {
     }
   };
 
+  useEffect(() => {
+    const fetchUserRoles = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const response = await axios.get(`${baseUrl}/current_user_type`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setUserRoles(response.data.type);
+        } catch (error) {
+          console.error("Error fetching user roles:", error);
+        }
+      }
+    };
+
+    fetchUserRoles();
+  }, []);
+
+  const handleDeleteClass = async (classId: number) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("No token found, redirecting to login");
+      navigate("/login");
+    } else {
+      try {
+        const response = await axios.delete(`${baseUrl}/classes/${classId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log("Response status:", response.status);
+        setClasses(classes.filter((c) => c.id !== classId));
+        console.log("Class deleted successfully");
+      } catch (error) {
+        console.error(
+          "Error deleting class:"
+        );
+      }
+    }
+  };
+
   return (
     <div className="container mx-auto p-6">
       <div className="flex flex-col items-center justify-center mb-6">
         <h2 className="text-4xl font-bold text-[#2E1A47]">Class Timetable</h2>
-        <div className="flex justify-center space-x-4 mt-4 ml-14">
-          <DatePicker
-            selected={startDate}
-            onChange={(date: Date | null) => {
-              if (date) setStartDate(date);
-            }}
-            selectsStart
-            startDate={startDate}
-            endDate={endDate}
-            dateFormat="MMMM d, yyyy"
-          />
-          <DatePicker
-            selected={endDate}
-            onChange={(date: Date | null) => {
-              if (date) setEndDate(date);
-            }}
-            selectsEnd
-            startDate={startDate}
-            endDate={endDate}
-            minDate={startDate}
-            dateFormat="MMMM d, yyyy"
+        <div className="flex justify-center space-x-4 mt-4 ">
+          <DateRangePicker
+            setStartDate={(dateStr) => setStartDate(new Date(dateStr))}
+            setEndDate={(dateStr) => setEndDate(new Date(dateStr))}
           />
         </div>
       </div>
@@ -135,6 +160,14 @@ export default function Classes() {
                       >
                         Book Class
                       </button>
+                      {userRoles.includes("Admin") && (
+                        <button
+                          onClick={() => handleDeleteClass(c.id)}
+                          className="mt-2 ml-2 bg-red-500 hover:bg-red-700 transition-colors text-white font-bold py-2 px-4 rounded"
+                        >
+                          Delete
+                        </button>
+                      )}
                       {bookedClassId === c.id && (
                         <div
                           className="text-xs sm:text-sm md:text-base py-2 px-4 ml-2 mt-2 bg-green-200 rounded-lg flex items-center justify-center"

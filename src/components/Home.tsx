@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { format, startOfWeek, endOfWeek, addDays } from "date-fns";
 import { IClasses } from "../interfaces/classes";
-import { useLocation } from "react-router-dom";
 import { baseUrl } from "../../config";
+import Logo from "../../assets/logo.png";
+import jiujitsu from "../../assets/jiujitsu.png";
 
 export default function Home() {
   const [classes, setClasses] = useState<IClasses[]>([]);
@@ -24,7 +25,6 @@ export default function Home() {
 
   const startOfWeekDate = startOfWeek(new Date(), { weekStartsOn: 1 });
   const endOfWeekDate = endOfWeek(new Date(), { weekStartsOn: 1 });
-
   const days = [];
   for (let i = 0; i < 7; i++) {
     days.push(format(addDays(startOfWeekDate, i), "EEEE"));
@@ -36,7 +36,7 @@ export default function Home() {
         <section className="p-18 md:p-18 mb-24">
           <img
             className="mx-auto max-w-full h-auto"
-            src="./assets/11th-planet-logo.png"
+            src={Logo}
             alt="11th Planet Logo"
           />
         </section>
@@ -54,7 +54,7 @@ export default function Home() {
             <div className="col-span-1">
               <img
                 className="max-w-full h-auto"
-                src="./assets/jiujitsu.png"
+                src={jiujitsu}
                 alt="Jiu Jitsu action"
               />
             </div>
@@ -71,12 +71,12 @@ export default function Home() {
               See the full timetable or feel free to contact us to book your
               first lesson.
             </p>
-            <a
-              href="#"
+            <Link
+              to="/timetable"
               className="inline-block mt-4 bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors"
             >
               Find Out More
-            </a>
+            </Link>
           </div>
 
           <div className=" md:p-12 shadow-lg bg-white text-black p-12 mb-12">
@@ -86,12 +86,12 @@ export default function Home() {
               tailored for young learners. We provide personalized one-on-one
               sessions and comprehensive programs for schools.
             </p>
-            <a
-              href="#"
+            <Link
+              to="/timetable"
               className="inline-block mt-4 bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors"
             >
               Learn More
-            </a>
+            </Link>
           </div>
 
           <div className="bg-[#2E1A47] text-white p-4 mt-12 md:p-12 shadow-lg">

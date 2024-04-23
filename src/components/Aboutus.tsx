@@ -1,9 +1,16 @@
+import bjjclass from "../../assets/bjjclass.jpg"
+import mmaclass from "../../assets/mmaclass.jpg"
+import mma2 from "../../assets/mma2.jpg"
+import kavanagh from "../../assets/kavanagh.jpg"
+import thomas from "../../assets/thomas.jpg"
+
+
 export default function AboutUs() {
   
   return (
     <>
       <section className="bg-cover bg-center">
-        <img src="./assets/bjj-class.jpg" alt="bjj class" />
+        <img src={bjjclass} alt="bjj class" />
         <div className="text-center text-white p-8">
           <h1>Welcome to 11th Planet Jiu-Jitsu</h1>
           <p>Mastering the Art of Combat, One Move at a Time.</p>
@@ -23,7 +30,7 @@ export default function AboutUs() {
         <hr className="border-t-2 border-black mx-auto w-4/5 my-6" />
 
         <div className="flex justify-center items-center">
-          <img src="./assets/mma-class.jpg" alt="" className="w-[800px]" />
+          <img src={mmaclass} alt="" className="w-[800px]" />
         </div>
       </section>
       <section className="p-8 text-center">
@@ -40,7 +47,7 @@ export default function AboutUs() {
         </p>
         <hr className="border-t-2 border-black mx-auto w-4/5 my-6" />
         <div className="flex justify-center items-center">
-          <img src="./assets/mma-2.jpg" alt="" className="w-[400px]" />
+          <img src={mma2} alt="" className="w-[400px]" />
         </div>
       </section>
       <section className="p-8 text-center">
@@ -50,7 +57,7 @@ export default function AboutUs() {
           <div className="card max-w-xs flex-1">
             {" "}
             <img
-              src="./assets/kavanagh.jpg"
+              src={kavanagh}
               alt="Coach Kavanagh"
               className="rounded-full w-32 h-32 mx-auto mt-4 object-cover"
             />
@@ -63,7 +70,7 @@ export default function AboutUs() {
           </div>
           <div className="card max-w-xs flex-1">
             <img
-              src="./assets/thomas.jpg"
+              src={thomas}
               alt="Coach Thomas"
               className="rounded-full w-32 h-32 mx-auto mt-4 object-cover"
             />
