@@ -118,7 +118,7 @@ export default function UserProfile({ user }: IUserProfile) {
 
     try {
       const response = await axios.put(
-        `${baseUrl}/users/change-password`,
+        `${baseUrl}/api/users/${user}`,
         { currentPassword, newPassword },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -183,7 +183,7 @@ export default function UserProfile({ user }: IUserProfile) {
   const handleEditClass = (classId: number) => {
     setEditClassId(classId);
     setActiveTab("editClass");
-    console.log("Edit class ID:", classId); 
+    console.log("Edit class ID:", classId);
   };
 
   const handleUpdateClass = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -214,7 +214,7 @@ export default function UserProfile({ user }: IUserProfile) {
       class_type_id: classTypeId,
     };
 
-    console.log("Sending data:", classData); 
+    console.log("Sending data:", classData);
 
     try {
       const response = await axios.put(
@@ -447,7 +447,7 @@ export default function UserProfile({ user }: IUserProfile) {
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Enter class description"
                 rows={3}
-                className="bg-white text-gray-900 shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                className="bg-white text-gray-900 hide-scrollbar resize-none shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                 required
               ></textarea>
             </div>

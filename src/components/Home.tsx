@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { format, startOfWeek, endOfWeek, addDays } from "date-fns";
 import { IClasses } from "../interfaces/classes";
 import { baseUrl } from "../../config";
-import Logo from "../../assets/Logo.png";
+import Logo from "../../assets/logo.png";
 import jiujitsu from "../../assets/jiujitsu.png";
 
 export default function Home() {
