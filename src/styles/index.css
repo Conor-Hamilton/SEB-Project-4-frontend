@@ -2,6 +2,15 @@ body {
     font-family: 'Oswald', sans-serif;
 }
 
+.hide-scrollbar {
+  overflow-y: auto;
+  scrollbar-width: none; 
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; 
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
