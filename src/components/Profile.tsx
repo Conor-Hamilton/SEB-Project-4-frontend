@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { IUser } from "../interfaces/user";
 import { Link, useNavigate } from "react-router-dom";
-import { baseUrl } from "../config";
+import { baseUrl } from "../../config";
 
 type Tab =
   | "settings"

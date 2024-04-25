@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { format, startOfWeek, endOfWeek, addDays } from "date-fns";
 import { IClasses } from "../interfaces/classes";
 import axios from "axios";
-import { baseUrl } from "../config";
+import { baseUrl } from "../../config";
 import DateRangePicker from "./RangePicker";
 
 export default function Classes() {

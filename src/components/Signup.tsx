@@ -1,7 +1,7 @@
 import { SyntheticEvent, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import { baseUrl } from "../config";
+import { baseUrl } from "../../config";
 import Logo from "../../assets/Logo.png";
 
 export default function Signup() {
