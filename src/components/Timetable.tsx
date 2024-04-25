@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { format, startOfWeek, endOfWeek, addDays } from "date-fns";
 import { IClasses } from "../interfaces/classes";
 import axios from "axios";
-import { baseUrl } from "../../config";
+import { baseUrl } from "../config";
 import DateRangePicker from "./RangePicker";
 
 export default function Classes() {
@@ -112,9 +112,7 @@ export default function Classes() {
         setClasses(classes.filter((c) => c.id !== classId));
         console.log("Class deleted successfully");
       } catch (error) {
-        console.error(
-          "Error deleting class:"
-        );
+        console.error("Error deleting class:");
       }
     }
   };
