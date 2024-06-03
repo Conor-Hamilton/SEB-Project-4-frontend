@@ -11,7 +11,7 @@ export default function ShopOpeningCountdown() {
   }, []);
 
   const getTimeUntilLaunch = () => {
-    const launchDate = new Date("2024-06-31").getTime(); 
+    const launchDate = new Date("2024-06-29").getTime(); 
     const now = new Date().getTime();
     const distance = launchDate - now;
     return Math.max(0, distance);
